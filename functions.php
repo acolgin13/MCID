@@ -5,7 +5,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'MCID_VERSION', '1.0.0' );
+define( 'MCID_VERSION', '2.0.0' );
 define( 'MCID_DIR', get_template_directory() );
 define( 'MCID_URI', get_template_directory_uri() );
 
@@ -36,7 +36,6 @@ add_action( 'after_setup_theme', 'mcid_setup' );
  * Enqueue Styles & Scripts
  */
 function mcid_scripts() {
-    // Google Fonts
     wp_enqueue_style(
         'mcid-google-fonts',
         'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap',
@@ -44,10 +43,7 @@ function mcid_scripts() {
         null
     );
 
-    // Theme stylesheet
     wp_enqueue_style( 'mcid-style', get_stylesheet_uri(), array(), MCID_VERSION );
-
-    // Main JS
     wp_enqueue_script( 'mcid-main', MCID_URI . '/assets/js/main.js', array(), MCID_VERSION, true );
 }
 add_action( 'wp_enqueue_scripts', 'mcid_scripts' );
@@ -58,7 +54,7 @@ add_action( 'wp_enqueue_scripts', 'mcid_scripts' );
 class MCID_Nav_Walker extends Walker_Nav_Menu {
     function start_el( &$output, $item, $depth = 0, $args = null, $id = 0 ) {
         $classes = empty( $item->classes ) ? array() : (array) $item->classes;
-        $is_current = in_array( 'current-menu-item', $classes );
+        $is_current = in_array( 'current-menu-item', $classes ) || in_array( 'current_page_item', $classes );
         $class_attr = $is_current ? ' class="active"' : '';
         $output .= '<a href="' . esc_url( $item->url ) . '"' . $class_attr . '>' . esc_html( $item->title ) . '</a>';
     }
@@ -68,7 +64,7 @@ class MCID_Nav_Walker extends Walker_Nav_Menu {
 }
 
 /**
- * Customizer: Add CTA button URL option
+ * Customizer settings
  */
 function mcid_customize_register( $wp_customize ) {
     $wp_customize->add_section( 'mcid_options', array(
@@ -76,9 +72,8 @@ function mcid_customize_register( $wp_customize ) {
         'priority' => 30,
     ) );
 
-    // Demo CTA URL
     $wp_customize->add_setting( 'mcid_cta_url', array(
-        'default'           => '#contact',
+        'default'           => '/demo/',
         'sanitize_callback' => 'esc_url_raw',
     ) );
     $wp_customize->add_control( 'mcid_cta_url', array(
@@ -87,16 +82,15 @@ function mcid_customize_register( $wp_customize ) {
         'type'    => 'url',
     ) );
 
-    // Hero subtitle
-    $wp_customize->add_setting( 'mcid_hero_subtitle', array(
-        'default'           => 'Welcome to the most efficient proctoring solution on the market.',
-        'sanitize_callback' => 'sanitize_text_field',
+    // Hero background image
+    $wp_customize->add_setting( 'mcid_hero_image', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
     ) );
-    $wp_customize->add_control( 'mcid_hero_subtitle', array(
-        'label'   => __( 'Hero Subtitle', 'mycourseid' ),
+    $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'mcid_hero_image', array(
+        'label'   => __( 'Hero Background Image', 'mycourseid' ),
         'section' => 'mcid_options',
-        'type'    => 'text',
-    ) );
+    ) ) );
 }
 add_action( 'customize_register', 'mcid_customize_register' );
 

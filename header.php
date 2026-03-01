@@ -3,7 +3,7 @@
 <head>
     <meta charset="<?php bloginfo( 'charset' ); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="MyCourseID - Online Proctoring Simplified. The most efficient and user-friendly proctoring solution on the market.">
+    <meta name="description" content="MyCourseID - Authentication Solutions. Online proctoring, identity verification, and participation monitoring.">
     <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
@@ -15,7 +15,10 @@
             <?php if ( has_custom_logo() ) : ?>
                 <?php the_custom_logo(); ?>
             <?php else : ?>
-                <span class="site-logo-text">My<span>CourseID</span></span>
+                <div class="site-logo-text-wrap">
+                    <span class="site-logo-text">MyCourseID</span>
+                    <span class="site-logo-tagline">Authentication Solutions</span>
+                </div>
             <?php endif; ?>
         </a>
 
@@ -36,18 +39,16 @@
                 ) );
             } else {
                 ?>
-                <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="active">Home</a>
-                <a href="#services">Services</a>
-                <a href="#trust">Compliance</a>
-                <a href="#integrations">Integrations</a>
-                <a href="/blog">Blog</a>
+                <a href="<?php echo esc_url( home_url( '/product/' ) ); ?>">Product</a>
+                <a href="<?php echo esc_url( home_url( '/company/' ) ); ?>">Company</a>
+                <a href="<?php echo esc_url( home_url( '/security/' ) ); ?>">Security</a>
+                <a href="<?php echo esc_url( home_url( '/news/' ) ); ?>">News</a>
                 <?php
             }
             ?>
             <div class="nav-cta">
-                <a href="<?php echo esc_url( get_theme_mod( 'mcid_cta_url', '#contact' ) ); ?>" class="btn btn-primary btn-sm">
-                    Book a Demo
-                    <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                <a href="<?php echo esc_url( home_url( '/demo/' ) ); ?>" class="btn btn-primary btn-sm">
+                    Get a demo
                 </a>
             </div>
         </nav>

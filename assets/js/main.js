@@ -5,23 +5,20 @@
     'use strict';
 
     /* ---- Sticky Header ---- */
-    const header = document.getElementById('site-header');
+    var header = document.getElementById('site-header');
     if (header) {
-        let lastScroll = 0;
         window.addEventListener('scroll', function () {
-            const currentScroll = window.pageYOffset;
-            if (currentScroll > 60) {
+            if (window.pageYOffset > 40) {
                 header.classList.add('scrolled');
             } else {
                 header.classList.remove('scrolled');
             }
-            lastScroll = currentScroll;
         }, { passive: true });
     }
 
     /* ---- Mobile Menu Toggle ---- */
-    const menuToggle = document.getElementById('menu-toggle');
-    const mainNav = document.getElementById('main-nav');
+    var menuToggle = document.getElementById('menu-toggle');
+    var mainNav = document.getElementById('main-nav');
 
     if (menuToggle && mainNav) {
         menuToggle.addEventListener('click', function () {
@@ -30,7 +27,6 @@
             document.body.style.overflow = mainNav.classList.contains('active') ? 'hidden' : '';
         });
 
-        // Close nav when a link is clicked
         mainNav.querySelectorAll('a:not(.btn)').forEach(function (link) {
             link.addEventListener('click', function () {
                 menuToggle.classList.remove('active');
@@ -38,6 +34,72 @@
                 document.body.style.overflow = '';
             });
         });
+    }
+
+    /* ---- Hero Text Cycling Animation ---- */
+    function initHeroTyped() {
+        var el = document.getElementById('hero-typed');
+        if (!el) return;
+
+        var words = ['Customizable!', 'Perfected!', 'Simplified!'];
+        var wordIndex = 0;
+        var charIndex = 0;
+        var isDeleting = false;
+        var pauseEnd = false;
+
+        function typeStep() {
+            var current = words[wordIndex];
+
+            if (isDeleting) {
+                charIndex--;
+                el.textContent = current.substring(0, charIndex);
+
+                if (charIndex === 0) {
+                    isDeleting = false;
+                    wordIndex++;
+
+                    // If we've shown all words, loop back
+                    if (wordIndex >= words.length) {
+                        wordIndex = 0;
+                    }
+
+                    setTimeout(typeStep, 300);
+                    return;
+                }
+                setTimeout(typeStep, 40);
+            } else {
+                charIndex++;
+                el.textContent = current.substring(0, charIndex);
+
+                if (charIndex === current.length) {
+                    // If this is "Simplified!" (last word) on its final cycle, stop
+                    if (wordIndex === words.length - 1 && pauseEnd) {
+                        // Stop cycling — keep "Simplified!" displayed
+                        el.classList.add('typed-done');
+                        return;
+                    }
+
+                    // If this is the last word finishing its first pass, mark for final stop on next full cycle
+                    if (wordIndex === words.length - 1) {
+                        pauseEnd = true;
+                    }
+
+                    // Pause then delete
+                    setTimeout(function () {
+                        isDeleting = true;
+                        typeStep();
+                    }, 2000);
+                    return;
+                }
+                setTimeout(typeStep, 80);
+            }
+        }
+
+        // Start after a brief delay
+        setTimeout(function () {
+            el.textContent = '';
+            typeStep();
+        }, 800);
     }
 
     /* ---- Scroll Reveal ---- */
@@ -82,9 +144,14 @@
     });
 
     /* ---- Init ---- */
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initReveal);
-    } else {
+    function init() {
         initReveal();
+        initHeroTyped();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
     }
 })();

@@ -122,66 +122,246 @@ $security_url = esc_url( home_url( '/security/' ) );
             </div>
 
             <div class="reporting-mockup reveal reveal-d1">
-                <div class="report-card">
-                    <div class="report-header">
-                        <div class="report-header-left">
-                            <div class="report-avatar">MD</div>
-                            <div>
-                                <div class="report-name">Mary Davis</div>
-                                <div class="report-meta">Intro to Biology &middot; Final Exam</div>
-                            </div>
-                        </div>
-                        <div class="report-header-right">
-                            <span class="report-flag-count">6 Flags</span>
-                            <a href="#" class="report-video-link">
-                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width:14px;height:14px"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/></svg>
-                                View Video
-                            </a>
-                        </div>
+                <div class="results-panel">
+                    <div class="results-panel-header">
+                        <h3>Exam Results</h3>
+                        <span class="results-panel-meta">Intro to Biology &middot; Final Exam</span>
                     </div>
-                    <div class="report-timeline">
-                        <div class="report-entry report-entry-high">
-                            <div class="report-time">3:43:11 PM</div>
-                            <div class="report-entry-body">
-                                <span class="report-tag report-tag-high">Outside Device</span>
-                                <p>Student used a smartphone for 27 seconds</p>
+                    <div class="results-table-head">
+                        <span class="rt-col-name">Student</span>
+                        <span class="rt-col-flags">Flags</span>
+                        <span class="rt-col-status">Status</span>
+                        <span class="rt-col-action"></span>
+                    </div>
+                    <div class="results-table-body" id="results-table">
+
+                        <!-- 1. Mary Davis — 6 flags -->
+                        <div class="student-row" data-student>
+                            <button class="student-row-trigger" aria-expanded="false">
+                                <span class="rt-col-name">
+                                    <span class="student-avatar" style="background: var(--accent);">MD</span>
+                                    Mary Davis
+                                </span>
+                                <span class="rt-col-flags"><span class="flag-badge flag-high">6</span></span>
+                                <span class="rt-col-status"><span class="status-tag status-review">Needs Review</span></span>
+                                <span class="rt-col-action">
+                                    <svg class="row-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                                </span>
+                            </button>
+                            <div class="student-row-detail">
+                                <div class="detail-inner">
+                                    <div class="report-entry report-entry-high">
+                                        <div class="report-time">3:12:04 PM</div>
+                                        <div class="report-entry-body">
+                                            <span class="report-tag report-tag-high">Outside Device</span>
+                                            <p>Student used a smartphone for 27 seconds</p>
+                                        </div>
+                                    </div>
+                                    <div class="report-entry report-entry-high">
+                                        <div class="report-time">3:18:33 PM</div>
+                                        <div class="report-entry-body">
+                                            <span class="report-tag report-tag-high">Outside Application</span>
+                                            <p>Student used unauthorized application Microsoft Word for 10 seconds</p>
+                                        </div>
+                                    </div>
+                                    <div class="report-entry report-entry-high">
+                                        <div class="report-time">3:24:15 PM</div>
+                                        <div class="report-entry-body">
+                                            <span class="report-tag report-tag-high">Browsing Websites</span>
+                                            <p>Student viewed unauthorized website for 24 seconds (chat.openai.com)</p>
+                                        </div>
+                                    </div>
+                                    <div class="report-entry report-entry-med">
+                                        <div class="report-time">3:31:47 PM</div>
+                                        <div class="report-entry-body">
+                                            <span class="report-tag report-tag-med">Talking To Others</span>
+                                            <p>Student engaged in conversation with another individual</p>
+                                        </div>
+                                    </div>
+                                    <div class="report-entry report-entry-med">
+                                        <div class="report-time">3:38:22 PM</div>
+                                        <div class="report-entry-body">
+                                            <span class="report-tag report-tag-med">Disabled Monitoring</span>
+                                            <p>Loud, aggressive rustling and cracking noises detected</p>
+                                        </div>
+                                    </div>
+                                    <div class="report-entry report-entry-low">
+                                        <div class="report-time">3:42:09 PM</div>
+                                        <div class="report-entry-body">
+                                            <span class="report-tag report-tag-low">Left Exam Area</span>
+                                            <p>Student stood up and left the camera view for 12 seconds</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="report-entry report-entry-high">
-                            <div class="report-time">3:42:21 PM</div>
-                            <div class="report-entry-body">
-                                <span class="report-tag report-tag-high">Outside Application</span>
-                                <p>Student used unauthorized application Microsoft Word for 10 seconds</p>
+
+                        <!-- 2. James Thompson — 3 flags -->
+                        <div class="student-row" data-student>
+                            <button class="student-row-trigger" aria-expanded="false">
+                                <span class="rt-col-name">
+                                    <span class="student-avatar" style="background: #4a7c59;">JT</span>
+                                    James Thompson
+                                </span>
+                                <span class="rt-col-flags"><span class="flag-badge flag-med">3</span></span>
+                                <span class="rt-col-status"><span class="status-tag status-review">Needs Review</span></span>
+                                <span class="rt-col-action">
+                                    <svg class="row-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                                </span>
+                            </button>
+                            <div class="student-row-detail">
+                                <div class="detail-inner">
+                                    <div class="report-entry report-entry-med">
+                                        <div class="report-time">2:05:18 PM</div>
+                                        <div class="report-entry-body">
+                                            <span class="report-tag report-tag-med">Talking To Others</span>
+                                            <p>Student appeared to whisper to someone off-screen</p>
+                                        </div>
+                                    </div>
+                                    <div class="report-entry report-entry-low">
+                                        <div class="report-time">2:22:41 PM</div>
+                                        <div class="report-entry-body">
+                                            <span class="report-tag report-tag-low">Left Exam Area</span>
+                                            <p>Student left the camera view for 8 seconds</p>
+                                        </div>
+                                    </div>
+                                    <div class="report-entry report-entry-high">
+                                        <div class="report-time">2:34:09 PM</div>
+                                        <div class="report-entry-body">
+                                            <span class="report-tag report-tag-high">Outside Device</span>
+                                            <p>Student picked up a mobile device for 14 seconds</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="report-entry report-entry-med">
-                            <div class="report-time">3:41:51 PM</div>
-                            <div class="report-entry-body">
-                                <span class="report-tag report-tag-med">Disabled Monitoring</span>
-                                <p>Loud, aggressive rustling and cracking noises detected</p>
+
+                        <!-- 3. Sophia Chen — 1 flag -->
+                        <div class="student-row" data-student>
+                            <button class="student-row-trigger" aria-expanded="false">
+                                <span class="rt-col-name">
+                                    <span class="student-avatar" style="background: #6b5b95;">SC</span>
+                                    Sophia Chen
+                                </span>
+                                <span class="rt-col-flags"><span class="flag-badge flag-low">1</span></span>
+                                <span class="rt-col-status"><span class="status-tag status-flagged">Flagged</span></span>
+                                <span class="rt-col-action">
+                                    <svg class="row-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                                </span>
+                            </button>
+                            <div class="student-row-detail">
+                                <div class="detail-inner">
+                                    <div class="report-entry report-entry-low">
+                                        <div class="report-time">1:47:33 PM</div>
+                                        <div class="report-entry-body">
+                                            <span class="report-tag report-tag-low">Left Exam Area</span>
+                                            <p>Student briefly left the camera view for 6 seconds</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="report-entry report-entry-high">
-                            <div class="report-time">3:41:49 PM</div>
-                            <div class="report-entry-body">
-                                <span class="report-tag report-tag-high">Browsing Websites</span>
-                                <p>Student viewed unauthorized website for 24 seconds (chat.openai.com)</p>
+
+                        <!-- 4. Daniel Martinez — 0 flags -->
+                        <div class="student-row" data-student>
+                            <button class="student-row-trigger" aria-expanded="false">
+                                <span class="rt-col-name">
+                                    <span class="student-avatar" style="background: #2d8fa1;">DM</span>
+                                    Daniel Martinez
+                                </span>
+                                <span class="rt-col-flags"><span class="flag-badge flag-clear">0</span></span>
+                                <span class="rt-col-status"><span class="status-tag status-clear">Clear</span></span>
+                                <span class="rt-col-action">
+                                    <svg class="row-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                                </span>
+                            </button>
+                            <div class="student-row-detail">
+                                <div class="detail-inner">
+                                    <p class="no-flags-msg">No flags recorded. Session completed without incidents.</p>
+                                </div>
                             </div>
                         </div>
-                        <div class="report-entry report-entry-med">
-                            <div class="report-time">3:41:27 PM</div>
-                            <div class="report-entry-body">
-                                <span class="report-tag report-tag-med">Talking To Others</span>
-                                <p>Student engaged in conversation with another individual</p>
+
+                        <!-- 5. Emily Watson — 4 flags -->
+                        <div class="student-row" data-student>
+                            <button class="student-row-trigger" aria-expanded="false">
+                                <span class="rt-col-name">
+                                    <span class="student-avatar" style="background: #c4573a;">EW</span>
+                                    Emily Watson
+                                </span>
+                                <span class="rt-col-flags"><span class="flag-badge flag-high">4</span></span>
+                                <span class="rt-col-status"><span class="status-tag status-review">Needs Review</span></span>
+                                <span class="rt-col-action">
+                                    <svg class="row-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                                </span>
+                            </button>
+                            <div class="student-row-detail">
+                                <div class="detail-inner">
+                                    <div class="report-entry report-entry-high">
+                                        <div class="report-time">10:03:12 AM</div>
+                                        <div class="report-entry-body">
+                                            <span class="report-tag report-tag-high">Browsing Websites</span>
+                                            <p>Student navigated to unauthorized website for 18 seconds (google.com)</p>
+                                        </div>
+                                    </div>
+                                    <div class="report-entry report-entry-high">
+                                        <div class="report-time">10:11:45 AM</div>
+                                        <div class="report-entry-body">
+                                            <span class="report-tag report-tag-high">Outside Application</span>
+                                            <p>Student opened Apple Notes application for 9 seconds</p>
+                                        </div>
+                                    </div>
+                                    <div class="report-entry report-entry-med">
+                                        <div class="report-time">10:24:08 AM</div>
+                                        <div class="report-entry-body">
+                                            <span class="report-tag report-tag-med">Disabled Monitoring</span>
+                                            <p>Webcam was obstructed for 15 seconds</p>
+                                        </div>
+                                    </div>
+                                    <div class="report-entry report-entry-low">
+                                        <div class="report-time">10:38:56 AM</div>
+                                        <div class="report-entry-body">
+                                            <span class="report-tag report-tag-low">Left Exam Area</span>
+                                            <p>Student left the camera view for 11 seconds</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="report-entry report-entry-low">
-                            <div class="report-time">3:41:09 PM</div>
-                            <div class="report-entry-body">
-                                <span class="report-tag report-tag-low">Left Exam Area</span>
-                                <p>Student stood up and left the camera view for 12 seconds</p>
+
+                        <!-- 6. Ryan Patel — 2 flags -->
+                        <div class="student-row" data-student>
+                            <button class="student-row-trigger" aria-expanded="false">
+                                <span class="rt-col-name">
+                                    <span class="student-avatar" style="background: #3d7068;">RP</span>
+                                    Ryan Patel
+                                </span>
+                                <span class="rt-col-flags"><span class="flag-badge flag-med">2</span></span>
+                                <span class="rt-col-status"><span class="status-tag status-flagged">Flagged</span></span>
+                                <span class="rt-col-action">
+                                    <svg class="row-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                                </span>
+                            </button>
+                            <div class="student-row-detail">
+                                <div class="detail-inner">
+                                    <div class="report-entry report-entry-med">
+                                        <div class="report-time">4:15:22 PM</div>
+                                        <div class="report-entry-body">
+                                            <span class="report-tag report-tag-med">Talking To Others</span>
+                                            <p>Student engaged in brief conversation with another individual</p>
+                                        </div>
+                                    </div>
+                                    <div class="report-entry report-entry-high">
+                                        <div class="report-time">4:29:07 PM</div>
+                                        <div class="report-entry-body">
+                                            <span class="report-tag report-tag-high">Outside Device</span>
+                                            <p>Student interacted with a tablet device for 19 seconds</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>

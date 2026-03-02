@@ -29,6 +29,7 @@
         </button>
 
         <nav class="main-nav" id="main-nav">
+            <a href="<?php echo esc_url( home_url( '/' ) ); ?>"<?php if ( is_front_page() ) echo ' class="active"'; ?>>Home</a>
             <a href="<?php echo esc_url( home_url( '/services/' ) ); ?>"<?php if ( is_page( 'services' ) ) echo ' class="active"'; ?>>Services</a>
             <a href="<?php echo esc_url( home_url( '/security/' ) ); ?>"<?php if ( is_page( 'security' ) ) echo ' class="active"'; ?>>Security</a>
             <div class="nav-cta">

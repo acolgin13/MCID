@@ -183,12 +183,40 @@
         });
     });
 
+    /* ---- Student Results Table ---- */
+    function initStudentRows() {
+        var rows = document.querySelectorAll('[data-student]');
+        if (!rows.length) return;
+
+        rows.forEach(function (row) {
+            var trigger = row.querySelector('.student-row-trigger');
+            if (!trigger) return;
+
+            trigger.addEventListener('click', function () {
+                var isActive = row.classList.contains('active');
+
+                // Close all other rows
+                rows.forEach(function (other) {
+                    other.classList.remove('active');
+                    var ot = other.querySelector('.student-row-trigger');
+                    if (ot) ot.setAttribute('aria-expanded', 'false');
+                });
+
+                if (!isActive) {
+                    row.classList.add('active');
+                    trigger.setAttribute('aria-expanded', 'true');
+                }
+            });
+        });
+    }
+
     /* ---- Init ---- */
     function init() {
         initReveal();
         initHeroTyped();
         initAccordion();
         initFaqTabs();
+        initStudentRows();
     }
 
     if (document.readyState === 'loading') {

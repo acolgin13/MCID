@@ -10,19 +10,18 @@
                         <span class="site-logo-tagline">Authentication Solutions</span>
                     </div>
                 </a>
-                <p>The most efficient and user-friendly online proctoring solution on the market. Designed by educators, built for institutions.</p>
+                <p>The most efficient and user-friendly online proctoring solution on the market.</p>
             </div>
             <div class="footer-col">
                 <h4>Product</h4>
-                <a href="<?php echo esc_url( home_url( '/product/' ) ); ?>">Overview</a>
+                <a href="<?php echo esc_url( home_url( '/services/' ) ); ?>">Services</a>
                 <a href="<?php echo esc_url( home_url( '/security/' ) ); ?>">Security</a>
-                <a href="<?php echo esc_url( home_url( '/product/#integrations' ) ); ?>">Integrations</a>
             </div>
             <div class="footer-col">
                 <h4>Company</h4>
-                <a href="<?php echo esc_url( home_url( '/company/' ) ); ?>">About Us</a>
+                <a href="<?php echo esc_url( home_url( '/company/' ) ); ?>">About</a>
                 <a href="<?php echo esc_url( home_url( '/news/' ) ); ?>">News</a>
-                <a href="<?php echo esc_url( home_url( '/demo/' ) ); ?>">Contact</a>
+                <a href="<?php echo esc_url( home_url( '/demo/' ) ); ?>">Get a Demo</a>
             </div>
             <div class="footer-col">
                 <h4>Legal</h4>

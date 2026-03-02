@@ -6,7 +6,7 @@
     <meta name="description" content="MyCourseID - Authentication Solutions. Online proctoring, identity verification, and participation monitoring.">
     <?php wp_head(); ?>
 </head>
-<body <?php body_class(); ?>>
+<body <?php body_class( is_front_page() ? 'page-has-dark-hero' : '' ); ?>>
 <?php wp_body_open(); ?>
 
 <header class="site-header" id="site-header">
@@ -39,7 +39,7 @@
                 ) );
             } else {
                 ?>
-                <a href="<?php echo esc_url( home_url( '/product/' ) ); ?>">Product</a>
+                <a href="<?php echo esc_url( home_url( '/services/' ) ); ?>">Services</a>
                 <a href="<?php echo esc_url( home_url( '/company/' ) ); ?>">Company</a>
                 <a href="<?php echo esc_url( home_url( '/security/' ) ); ?>">Security</a>
                 <a href="<?php echo esc_url( home_url( '/news/' ) ); ?>">News</a>
@@ -47,7 +47,7 @@
             }
             ?>
             <div class="nav-cta">
-                <a href="<?php echo esc_url( home_url( '/demo/' ) ); ?>" class="btn btn-primary btn-sm">
+                <a href="<?php echo esc_url( home_url( '/demo/' ) ); ?>" class="btn btn-accent btn-sm">
                     Get a demo
                 </a>
             </div>

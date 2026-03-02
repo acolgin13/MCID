@@ -41,11 +41,11 @@
         var el = document.getElementById('hero-typed');
         if (!el) return;
 
-        var words = ['Customizable!', 'Perfected!', 'Simplified!'];
+        var words = ['Customizable', 'Perfected', 'Simplified'];
         var wordIndex = 0;
         var charIndex = 0;
         var isDeleting = false;
-        var pauseEnd = false;
+        var cycleCount = 0;
 
         function typeStep() {
             var current = words[wordIndex];
@@ -57,49 +57,66 @@
                 if (charIndex === 0) {
                     isDeleting = false;
                     wordIndex++;
-
-                    // If we've shown all words, loop back
                     if (wordIndex >= words.length) {
                         wordIndex = 0;
+                        cycleCount++;
                     }
-
-                    setTimeout(typeStep, 300);
+                    setTimeout(typeStep, 250);
                     return;
                 }
-                setTimeout(typeStep, 40);
+                setTimeout(typeStep, 35);
             } else {
                 charIndex++;
                 el.textContent = current.substring(0, charIndex);
 
                 if (charIndex === current.length) {
-                    // If this is "Simplified!" (last word) on its final cycle, stop
-                    if (wordIndex === words.length - 1 && pauseEnd) {
-                        // Stop cycling — keep "Simplified!" displayed
+                    // Stop on "Simplified" after one full cycle
+                    if (wordIndex === words.length - 1 && cycleCount >= 1) {
                         el.classList.add('typed-done');
                         return;
                     }
-
-                    // If this is the last word finishing its first pass, mark for final stop on next full cycle
-                    if (wordIndex === words.length - 1) {
-                        pauseEnd = true;
-                    }
-
-                    // Pause then delete
                     setTimeout(function () {
                         isDeleting = true;
                         typeStep();
-                    }, 2000);
+                    }, 1800);
                     return;
                 }
-                setTimeout(typeStep, 80);
+                setTimeout(typeStep, 70);
             }
         }
 
-        // Start after a brief delay
         setTimeout(function () {
             el.textContent = '';
             typeStep();
-        }, 800);
+        }, 600);
+    }
+
+    /* ---- Accordion ---- */
+    function initAccordion() {
+        var items = document.querySelectorAll('[data-accordion]');
+        if (!items.length) return;
+
+        items.forEach(function (item) {
+            var trigger = item.querySelector('.accordion-trigger');
+            if (!trigger) return;
+
+            trigger.addEventListener('click', function () {
+                var isActive = item.classList.contains('active');
+
+                // Close all
+                items.forEach(function (other) {
+                    other.classList.remove('active');
+                    var otherTrigger = other.querySelector('.accordion-trigger');
+                    if (otherTrigger) otherTrigger.setAttribute('aria-expanded', 'false');
+                });
+
+                // Open clicked (unless it was already open)
+                if (!isActive) {
+                    item.classList.add('active');
+                    trigger.setAttribute('aria-expanded', 'true');
+                }
+            });
+        });
     }
 
     /* ---- Scroll Reveal ---- */
@@ -147,6 +164,7 @@
     function init() {
         initReveal();
         initHeroTyped();
+        initAccordion();
     }
 
     if (document.readyState === 'loading') {

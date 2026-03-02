@@ -57,7 +57,6 @@ if ( isset( $_POST['mcid_demo_nonce'] ) && wp_verify_nonce( $_POST['mcid_demo_no
                 <span class="text-label">Get a Demo</span>
                 <h1>See MyCourseID in Action</h1>
                 <p>Schedule a product demo to learn how MyCourseID can solve your proctoring use case.</p>
-                <p class="demo-page-detail">During this live demo, we&rsquo;ll show how MyCourseID simplifies online proctoring from exam setup to post-exam review. You&rsquo;ll see how identity verification, AI deterrents, monitoring controls, and reporting tools work together to protect academic integrity without disrupting the student experience.</p>
 
                 <div class="demo-trust-items">
                     <div class="demo-trust-item">

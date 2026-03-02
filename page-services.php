@@ -493,16 +493,24 @@ $security_url = esc_url( home_url( '/security/' ) );
 <section class="cta-section">
     <div class="container">
         <div class="cta-card reveal">
-            <h2>Ready to Simplify<br>Your Proctoring?</h2>
-            <p>Join institutions that trust MyCourseID for secure, efficient, and student-friendly online proctoring.</p>
-            <div class="cta-actions">
-                <a href="<?php echo $demo_url; ?>" class="btn btn-accent">
-                    Book a Demo
-                    <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-                </a>
-                <a href="mailto:info@mycourseid.com" class="btn btn-outline-light">
-                    Contact Us
-                </a>
+            <div class="cta-card-content">
+                <h2>Ready to Simplify<br>Your Proctoring?</h2>
+                <p>Join institutions that trust MyCourseID for secure, efficient, and student-friendly online proctoring.</p>
+                <div class="cta-actions">
+                    <a href="<?php echo $demo_url; ?>" class="btn btn-accent">
+                        Book a Demo
+                        <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                    </a>
+                    <a href="mailto:Support@mycourseid.com" class="btn btn-outline-light">
+                        Contact Us
+                    </a>
+                </div>
+            </div>
+            <div class="cta-card-deco" aria-hidden="true">
+                <span class="cta-circle cta-circle-1"></span>
+                <span class="cta-circle cta-circle-2"></span>
+                <span class="cta-circle cta-circle-3"></span>
+                <span class="cta-circle cta-circle-4"></span>
             </div>
         </div>
     </div>

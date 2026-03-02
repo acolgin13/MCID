@@ -205,7 +205,7 @@ p { line-height: 1.8; }
 .btn:hover .btn-icon { transform: translateX(3px); }
 
 /* ============================================
-   HEADER — Integrity Advocate style
+   HEADER — Rounded floating bar
    ============================================ */
 .site-header {
     position: fixed;
@@ -213,15 +213,24 @@ p { line-height: 1.8; }
     left: 0;
     right: 0;
     z-index: 1000;
-    padding: 0;
-    background: rgba(35,35,35,0.85);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    transition: var(--transition);
+    padding: 12px 5% 0;
+    transition: padding 0.3s var(--ease);
 }
 
 .site-header.scrolled {
+    padding-top: 8px;
+}
+
+.header-bar {
+    background: rgba(35,35,35,0.88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: var(--radius-full);
+    transition: var(--transition);
+}
+
+.site-header.scrolled .header-bar {
     background: rgba(26,26,26,0.95);
 }
 
@@ -229,9 +238,7 @@ p { line-height: 1.8; }
     display: flex;
     align-items: center;
     justify-content: space-between;
-    max-width: var(--container);
-    margin: 0 auto;
-    padding: 14px 24px;
+    padding: 10px 28px;
 }
 
 .site-logo {
@@ -239,6 +246,7 @@ p { line-height: 1.8; }
     align-items: center;
     gap: 12px;
     z-index: 1001;
+    flex-shrink: 0;
 }
 
 .site-logo img,
@@ -270,10 +278,18 @@ p { line-height: 1.8; }
 .main-nav {
     display: flex;
     align-items: center;
+    flex: 1;
+}
+
+.nav-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
     gap: 0;
 }
 
-.main-nav a {
+.nav-center a {
     padding: 8px 20px;
     font-size: 0.875rem;
     font-weight: 500;
@@ -281,12 +297,28 @@ p { line-height: 1.8; }
     transition: var(--transition);
 }
 
-.main-nav a:hover,
-.main-nav a.active {
+.nav-center a:hover,
+.nav-center a.active {
     color: var(--white);
 }
 
-.nav-cta { margin-left: 16px; }
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.btn-support {
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.7);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.btn-support:hover {
+    background: rgba(255,255,255,0.14);
+    color: var(--white);
+}
 
 /* Mobile toggle */
 .menu-toggle {
@@ -636,15 +668,8 @@ p { line-height: 1.8; }
 }
 
 /* ============================================
-   SECURITY SECTION (on warm card bg)
+   SECURITY SECTION (on cream bg)
    ============================================ */
-.security-card {
-    background: var(--text-primary);
-    border-radius: var(--radius-xl);
-    padding: 80px 60px;
-    color: var(--white);
-}
-
 .security-home-layout {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -652,13 +677,10 @@ p { line-height: 1.8; }
     align-items: center;
 }
 
-.security-home-content .text-label { color: rgba(255,255,255,0.35); }
 .security-home-content h2 {
-    color: var(--white);
     margin-bottom: 20px;
 }
 .security-home-content p {
-    color: rgba(255,255,255,0.5);
     font-size: 1rem;
     margin-bottom: 32px;
 }
@@ -675,8 +697,8 @@ p { line-height: 1.8; }
     align-items: center;
     gap: 10px;
     padding: 24px 14px;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.07);
+    background: var(--white);
+    border: 1px solid var(--border);
     border-radius: var(--radius-md);
     transition: var(--transition);
     text-align: center;
@@ -684,9 +706,9 @@ p { line-height: 1.8; }
 }
 
 .compliance-badge:hover {
-    background: rgba(255,255,255,0.07);
     border-color: var(--accent);
     transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
 }
 
 .compliance-badge-icon {
@@ -695,7 +717,7 @@ p { line-height: 1.8; }
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(224,90,26,0.1);
+    background: var(--accent-light);
     border-radius: var(--radius-sm);
 }
 
@@ -709,7 +731,7 @@ p { line-height: 1.8; }
     font-family: var(--font-heading);
     font-weight: 800;
     font-size: 0.75rem;
-    color: rgba(255,255,255,0.8);
+    color: var(--text-primary);
     letter-spacing: 0.02em;
 }
 
@@ -772,11 +794,19 @@ p { line-height: 1.8; }
 }
 
 .cta-card {
-    text-align: center;
-    max-width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     background: var(--text-primary);
     border-radius: var(--radius-xl);
     padding: 80px 60px;
+    overflow: hidden;
+    position: relative;
+}
+
+.cta-card-content {
+    flex: 1;
+    max-width: 560px;
 }
 
 .cta-card h2 {
@@ -787,17 +817,58 @@ p { line-height: 1.8; }
 .cta-card p {
     font-size: 1.0625rem;
     color: rgba(255,255,255,0.45);
-    margin-bottom: 40px;
-    max-width: 520px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-bottom: 32px;
 }
 
 .cta-actions {
     display: flex;
-    justify-content: center;
     gap: 12px;
     flex-wrap: wrap;
+}
+
+/* Decorative circles (Merge-style logo pattern) */
+.cta-card-deco {
+    position: relative;
+    width: 280px;
+    height: 280px;
+    flex-shrink: 0;
+}
+
+.cta-circle {
+    position: absolute;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.02);
+}
+
+.cta-circle-1 {
+    width: 200px;
+    height: 200px;
+    top: 0;
+    right: 0;
+}
+
+.cta-circle-2 {
+    width: 140px;
+    height: 140px;
+    top: 80px;
+    right: 100px;
+}
+
+.cta-circle-3 {
+    width: 120px;
+    height: 120px;
+    bottom: 0;
+    right: 40px;
+}
+
+.cta-circle-4 {
+    width: 80px;
+    height: 80px;
+    top: 30px;
+    right: 180px;
+    background: rgba(224,90,26,0.06);
+    border-color: rgba(224,90,26,0.12);
 }
 
 /* ============================================
@@ -1649,28 +1720,19 @@ p { line-height: 1.8; }
     background: var(--cream);
 }
 
-.security-hero-inner {
-    max-width: 720px;
-    text-align: center;
-    margin: 0 auto;
+.security-hero-layout {
+    max-width: 640px;
 }
 
-.security-hero-inner h1 {
+.security-hero-text h1 {
     margin-bottom: 20px;
 }
 
-.security-hero-inner > p {
+.security-hero-text > p {
     font-size: 1.0625rem;
     line-height: 1.8;
     color: var(--text-secondary);
     margin-bottom: 32px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.security-hero-inner .hero-actions {
-    justify-content: center;
 }
 
 /* Security features grid */
@@ -1739,12 +1801,6 @@ p { line-height: 1.8; }
 }
 
 /* Security compliance card */
-.security-compliance-card {
-    background: var(--warm-bg);
-    border-radius: var(--radius-xl);
-    padding: 80px 60px;
-}
-
 .compliance-badges-lg {
     max-width: 800px;
     margin: 0 auto;
@@ -1760,8 +1816,8 @@ p { line-height: 1.8; }
 
 .demo-page-layout {
     display: grid;
-    grid-template-columns: 1fr 1.1fr;
-    gap: 72px;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 56px;
     align-items: start;
 }
 
@@ -1774,12 +1830,6 @@ p { line-height: 1.8; }
     line-height: 1.8;
     color: var(--text-secondary);
     margin-bottom: 8px;
-}
-
-.demo-page-detail {
-    font-size: 0.9375rem !important;
-    color: var(--text-tertiary) !important;
-    margin-bottom: 32px !important;
 }
 
 .demo-trust-items {
@@ -1810,28 +1860,28 @@ p { line-height: 1.8; }
     background: var(--white);
     border: 1px solid var(--border);
     border-radius: var(--radius-xl);
-    padding: 40px 36px;
+    padding: 32px 28px;
     box-shadow: var(--shadow-md);
 }
 
 .demo-form-wrap h3 {
     font-family: var(--font-heading);
-    font-size: 1.25rem;
+    font-size: 1.15rem;
     font-weight: 700;
     color: var(--text-primary);
-    margin-bottom: 24px;
+    margin-bottom: 20px;
 }
 
 .demo-form {
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 14px;
 }
 
 .form-group {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
 }
 
 .form-group label {
@@ -2055,11 +2105,9 @@ p { line-height: 1.8; }
     .services-hero-layout { grid-template-columns: 1fr; gap: 40px; }
     .feature-grid { grid-template-columns: 1fr 1fr; }
     .reporting-layout { grid-template-columns: 1fr; gap: 40px; }
-    .security-card { padding: 60px 40px; margin: 0; }
     .section-card { padding: 60px 40px; margin: 0; }
     .security-features-grid { grid-template-columns: 1fr 1fr; }
     .demo-page-layout { grid-template-columns: 1fr; gap: 48px; }
-    .security-compliance-card { padding: 60px 40px; }
 }
 
 @media (max-width: 768px) {
@@ -2085,19 +2133,32 @@ p { line-height: 1.8; }
         gap: 4px;
     }
 
+    .site-header { padding: 8px 12px 0; }
+
     .main-nav.active { right: 0; }
-    .main-nav a {
+    .nav-center {
+        flex-direction: column;
+        align-items: flex-start;
+        flex: none;
+    }
+    .nav-center a {
         width: 100%;
         padding: 12px 16px;
         font-size: 1rem;
         color: rgba(255,255,255,0.65);
     }
-    .main-nav a:hover,
-    .main-nav a.active {
+    .nav-center a:hover,
+    .nav-center a.active {
         color: var(--white);
     }
-    .nav-cta { margin-left: 0; margin-top: 16px; width: 100%; }
-    .nav-cta .btn { width: 100%; }
+    .nav-right {
+        flex-direction: column;
+        width: 100%;
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .nav-right .btn { width: 100%; justify-content: center; }
 
     .hero-home { min-height: auto; }
     .hero-home .container { padding-top: 120px; padding-bottom: 72px; }
@@ -2118,12 +2179,12 @@ p { line-height: 1.8; }
     .compliance-badges { grid-template-columns: repeat(2, 1fr); }
     .feature-grid { grid-template-columns: 1fr; }
     .services-hero { padding: 120px 0 60px; }
-    .security-card { padding: 48px 28px; }
 
     .logo-grid { gap: 10px; }
     .logo-item { min-width: 130px; padding: 20px 24px; }
 
-    .cta-card { padding: 56px 28px; }
+    .cta-card { padding: 48px 28px; flex-direction: column; }
+    .cta-card-deco { display: none; }
     .section-card { padding: 48px 28px; }
 
     .footer-links { flex-direction: column; gap: 12px; }
@@ -2134,7 +2195,6 @@ p { line-height: 1.8; }
 
     .security-features-grid { grid-template-columns: 1fr; }
     .security-hero { padding: 120px 0 60px; }
-    .security-compliance-card { padding: 48px 28px; }
     .demo-page-hero { padding: 120px 0 72px; }
     .legal-content { padding: 40px 28px; }
     .legal-content h1 { font-size: 1.5rem; }

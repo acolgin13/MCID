@@ -93,28 +93,51 @@
 
     /* ---- Accordion ---- */
     function initAccordion() {
-        var items = document.querySelectorAll('[data-accordion]');
-        if (!items.length) return;
+        // Each accordion group works independently
+        var accordions = document.querySelectorAll('.accordion');
+        accordions.forEach(function (accordion) {
+            var items = accordion.querySelectorAll('[data-accordion]');
+            items.forEach(function (item) {
+                var trigger = item.querySelector('.accordion-trigger');
+                if (!trigger) return;
 
-        items.forEach(function (item) {
-            var trigger = item.querySelector('.accordion-trigger');
-            if (!trigger) return;
+                trigger.addEventListener('click', function () {
+                    var isActive = item.classList.contains('active');
 
-            trigger.addEventListener('click', function () {
-                var isActive = item.classList.contains('active');
+                    // Close siblings within same accordion
+                    items.forEach(function (other) {
+                        other.classList.remove('active');
+                        var ot = other.querySelector('.accordion-trigger');
+                        if (ot) ot.setAttribute('aria-expanded', 'false');
+                    });
 
-                // Close all
-                items.forEach(function (other) {
-                    other.classList.remove('active');
-                    var otherTrigger = other.querySelector('.accordion-trigger');
-                    if (otherTrigger) otherTrigger.setAttribute('aria-expanded', 'false');
+                    if (!isActive) {
+                        item.classList.add('active');
+                        trigger.setAttribute('aria-expanded', 'true');
+                    }
                 });
+            });
+        });
+    }
 
-                // Open clicked (unless it was already open)
-                if (!isActive) {
-                    item.classList.add('active');
-                    trigger.setAttribute('aria-expanded', 'true');
-                }
+    /* ---- FAQ Tabs ---- */
+    function initFaqTabs() {
+        var tabContainer = document.getElementById('faq-tabs');
+        if (!tabContainer) return;
+
+        var buttons = tabContainer.querySelectorAll('.faq-tab-btn');
+        var panels = tabContainer.querySelectorAll('.faq-panel');
+
+        buttons.forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var target = btn.getAttribute('data-tab');
+
+                buttons.forEach(function (b) { b.classList.remove('active'); });
+                panels.forEach(function (p) { p.classList.remove('active'); });
+
+                btn.classList.add('active');
+                var panel = tabContainer.querySelector('[data-panel="' + target + '"]');
+                if (panel) panel.classList.add('active');
             });
         });
     }
@@ -165,6 +188,7 @@
         initReveal();
         initHeroTyped();
         initAccordion();
+        initFaqTabs();
     }
 
     if (document.readyState === 'loading') {

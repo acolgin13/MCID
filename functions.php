@@ -91,6 +91,17 @@ function mcid_customize_register( $wp_customize ) {
         'label'   => __( 'Hero Background Image', 'mycourseid' ),
         'section' => 'mcid_options',
     ) ) );
+
+    // Product video URL (Services page)
+    $wp_customize->add_setting( 'mcid_product_video', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ) );
+    $wp_customize->add_control( 'mcid_product_video', array(
+        'label'   => __( 'Product Demo Video URL (.mp4)', 'mycourseid' ),
+        'section' => 'mcid_options',
+        'type'    => 'url',
+    ) );
 }
 add_action( 'customize_register', 'mcid_customize_register' );
 

@@ -6,7 +6,7 @@
     <meta name="description" content="MyCourseID - Authentication Solutions. Online proctoring, identity verification, and participation monitoring.">
     <?php wp_head(); ?>
 </head>
-<body <?php body_class( is_front_page() ? 'page-has-dark-hero' : '' ); ?>>
+<body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
 <header class="site-header" id="site-header">
@@ -29,27 +29,10 @@
         </button>
 
         <nav class="main-nav" id="main-nav">
-            <?php
-            if ( has_nav_menu( 'primary' ) ) {
-                wp_nav_menu( array(
-                    'theme_location' => 'primary',
-                    'container'      => false,
-                    'items_wrap'     => '%3$s',
-                    'walker'         => new MCID_Nav_Walker(),
-                ) );
-            } else {
-                ?>
-                <a href="<?php echo esc_url( home_url( '/services/' ) ); ?>">Services</a>
-                <a href="<?php echo esc_url( home_url( '/company/' ) ); ?>">Company</a>
-                <a href="<?php echo esc_url( home_url( '/security/' ) ); ?>">Security</a>
-                <a href="<?php echo esc_url( home_url( '/news/' ) ); ?>">News</a>
-                <?php
-            }
-            ?>
+            <a href="<?php echo esc_url( home_url( '/services/' ) ); ?>"<?php if ( is_page( 'services' ) ) echo ' class="active"'; ?>>Services</a>
+            <a href="<?php echo esc_url( home_url( '/security/' ) ); ?>"<?php if ( is_page( 'security' ) ) echo ' class="active"'; ?>>Security</a>
             <div class="nav-cta">
-                <a href="<?php echo esc_url( home_url( '/demo/' ) ); ?>" class="btn btn-accent btn-sm">
-                    Get a demo
-                </a>
+                <a href="<?php echo esc_url( home_url( '/demo/' ) ); ?>" class="btn btn-accent btn-sm">Get a Demo</a>
             </div>
         </nav>
     </div>

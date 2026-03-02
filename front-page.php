@@ -263,7 +263,7 @@ $hero_image = get_theme_mod( 'mcid_hero_image', '' );
                     Book a Demo
                     <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                 </a>
-                <a href="mailto:info@mycourseid.com" class="btn btn-outline-light">
+                <a href="mailto:Support@mycourseid.com" class="btn btn-outline-light">
                     Contact Us
                 </a>
             </div>

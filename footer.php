@@ -11,6 +11,7 @@
                     </div>
                 </a>
                 <p>The most efficient and user-friendly online proctoring solution on the market.</p>
+                <a href="mailto:Support@mycourseid.com" class="footer-email">Support@mycourseid.com</a>
             </div>
             <div class="footer-links">
                 <a href="<?php echo esc_url( home_url( '/' ) ); ?>">Home</a>
@@ -30,8 +31,8 @@
         <div class="footer-bottom">
             <p>&copy; <?php echo date('Y'); ?> MyCourseID. All rights reserved.</p>
             <div class="footer-legal">
-                <a href="<?php echo esc_url( home_url( '/privacy-policy/' ) ); ?>">Privacy</a>
-                <a href="<?php echo esc_url( home_url( '/terms/' ) ); ?>">Terms</a>
+                <a href="<?php echo esc_url( home_url( '/privacy/' ) ); ?>">Privacy Policy</a>
+                <a href="<?php echo esc_url( home_url( '/tos/' ) ); ?>">Terms of Service</a>
             </div>
         </div>
     </div>

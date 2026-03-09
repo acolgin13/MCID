@@ -17,7 +17,7 @@ if ( isset( $_POST['mcid_support_nonce'] ) && wp_verify_nonce( $_POST['mcid_supp
     $phone       = sanitize_text_field( $_POST['mcid_phone'] ?? '' );
     $description = sanitize_textarea_field( $_POST['mcid_description'] ?? '' );
 
-    if ( $institution && $first_name && $last_name && $email && $phone ) {
+    if ( $institution && $first_name && $last_name && $email ) {
         $to      = 'Support@mycourseid.com';
         $subject = 'Support Request from ' . $first_name . ' ' . $last_name;
 
@@ -131,8 +131,8 @@ if ( isset( $_POST['mcid_support_nonce'] ) && wp_verify_nonce( $_POST['mcid_supp
                         </div>
 
                         <div class="form-group">
-                            <label for="mcid_phone">Phone Number <span class="required">*</span></label>
-                            <input type="tel" id="mcid_phone" name="mcid_phone" required placeholder="(555) 123-4567">
+                            <label for="mcid_phone">Phone Number <span class="optional">(optional)</span></label>
+                            <input type="tel" id="mcid_phone" name="mcid_phone" placeholder="(555) 123-4567">
                         </div>
 
                         <div class="form-group">
@@ -141,7 +141,7 @@ if ( isset( $_POST['mcid_support_nonce'] ) && wp_verify_nonce( $_POST['mcid_supp
                         </div>
 
                         <div class="form-group">
-                            <label for="mcid_attachment">Attach a Screenshot <span class="optional">(optional &mdash; PNG, JPG, GIF up to 5 MB)</span></label>
+                            <label for="mcid_attachment">Attach a Screenshot of Your Issue <span class="optional">(optional &mdash; PNG, JPG, GIF up to 5 MB)</span></label>
                             <input type="file" id="mcid_attachment" name="mcid_attachment" accept="image/png,image/jpeg,image/gif,image/webp">
                         </div>
 

@@ -1,95 +1,128 @@
 <?php
 /**
  * Template Name: Support
- * Support page with team contact information.
+ * Support page with contact form.
  */
 get_header();
-$demo_url = esc_url( get_theme_mod( 'mcid_cta_url', home_url( '/demo/' ) ) );
+
+// Handle form submission
+$form_submitted = false;
+$form_error     = false;
+
+if ( isset( $_POST['mcid_support_nonce'] ) && wp_verify_nonce( $_POST['mcid_support_nonce'], 'mcid_support_submit' ) ) {
+    $institution = sanitize_text_field( $_POST['mcid_institution'] ?? '' );
+    $first_name  = sanitize_text_field( $_POST['mcid_first_name'] ?? '' );
+    $last_name   = sanitize_text_field( $_POST['mcid_last_name'] ?? '' );
+    $email       = sanitize_email( $_POST['mcid_email'] ?? '' );
+    $phone       = sanitize_text_field( $_POST['mcid_phone'] ?? '' );
+    $description = sanitize_textarea_field( $_POST['mcid_description'] ?? '' );
+
+    if ( $institution && $first_name && $last_name && $email && $phone ) {
+        $to      = 'Support@mycourseid.com';
+        $subject = 'Support Request from ' . $first_name . ' ' . $last_name;
+
+        $body  = "New support request submitted via MyCourseID website:\n\n";
+        $body .= "Institution / Employer: {$institution}\n";
+        $body .= "Name: {$first_name} {$last_name}\n";
+        $body .= "Email: {$email}\n";
+        $body .= "Phone: {$phone}\n";
+        if ( $description ) {
+            $body .= "Description of Issue: {$description}\n";
+        }
+        $body .= "\n---\nSubmitted on " . date( 'F j, Y \a\t g:i A T' );
+
+        $headers = array(
+            'From: MyCourseID Website <noreply@mycourseid.com>',
+            'Reply-To: ' . $first_name . ' ' . $last_name . ' <' . $email . '>',
+            'Content-Type: text/plain; charset=UTF-8',
+        );
+
+        $sent = wp_mail( $to, $subject, $body, $headers );
+        $form_submitted = $sent;
+        $form_error     = ! $sent;
+    } else {
+        $form_error = true;
+    }
+}
 ?>
 
-<section class="support-page">
+<!-- ==================== SUPPORT PAGE ==================== -->
+<section class="demo-page-hero">
     <div class="container">
+        <div class="demo-page-layout">
+            <div class="demo-page-text reveal">
+                <span class="text-label">Support</span>
+                <h1>We&rsquo;re Here to Help</h1>
+                <p>If you&rsquo;re experiencing any issues, our support team is ready to assist. Fill out the form and we&rsquo;ll get back to you as quickly as possible.</p>
 
-        <!-- Hero -->
-        <div class="support-heading reveal">
-            <h1>MyCourseID Support</h1>
-        </div>
-
-        <!-- Primary CTA tile -->
-        <div class="support-tile support-tile-primary reveal">
-            <h2>We&rsquo;re Here to Help You!</h2>
-            <p>Our support team is ready to assist with setup, troubleshooting, and any questions about MyCourseID.</p>
-            <a href="mailto:Support@mycourseid.com" class="btn btn-accent">Email Support</a>
-        </div>
-
-        <!-- Contact tiles — 3 columns -->
-        <div class="support-tile-grid reveal">
-            <div class="support-tile">
-                <h3>Email</h3>
-                <p class="support-tile-label">Support Team</p>
-                <a href="mailto:Support@mycourseid.com">Support@MyCourseID.com</a>
-                <a href="mailto:Spencer@mycourseid.com">Spencer@MyCourseID.com</a>
-                <a href="mailto:Lynn@mycourseid.com">Lynn@MyCourseID.com</a>
-            </div>
-            <div class="support-tile">
-                <h3>Phone</h3>
-                <a href="tel:9192646089" class="support-tile-phone">919.264.6089</a>
-                <p class="support-tile-label">Hours of Operation</p>
-                <p class="support-tile-detail">8&ndash;5pm Central</p>
-            </div>
-            <div class="support-tile">
-                <h3>Chat</h3>
-                <p class="support-tile-detail">Available 24/7</p>
-                <p class="support-tile-sub">Get instant answers any time, day or night.</p>
-            </div>
-        </div>
-
-        <!-- How to get help — 2x2 grid -->
-        <div class="support-heading support-heading-sub reveal">
-            <h2>When You Contact Us</h2>
-            <p>Please have the following information ready so we can help you as quickly as possible.</p>
-        </div>
-
-        <div class="support-tile-grid support-tile-grid-2 reveal">
-            <div class="support-tile">
-                <h3>Your School or Institution</h3>
-                <p>Let us know which institution you&rsquo;re associated with.</p>
-            </div>
-            <div class="support-tile">
-                <h3>Your Name</h3>
-                <p>So we can look up your account and personalize your support.</p>
-            </div>
-            <div class="support-tile">
-                <h3>Description of the Issue</h3>
-                <p>A brief summary of what you&rsquo;re experiencing or need help with.</p>
-            </div>
-            <div class="support-tile">
-                <h3>Preferred Contact Method</h3>
-                <p>Let us know how you&rsquo;d like us to follow up &mdash; email, phone, or chat.</p>
-            </div>
-        </div>
-
-    </div>
-</section>
-
-<!-- CTA -->
-<section class="cta-section">
-    <div class="container">
-        <div class="cta-card reveal">
-            <div class="cta-card-content">
-                <span class="text-label" style="color: rgba(255,255,255,0.4);">Ready to Get Started?</span>
-                <h2>See MyCourseID in Action</h2>
-                <p>Schedule a personalized demo to learn how MyCourseID can solve your proctoring use case.</p>
-                <div class="cta-actions">
-                    <a href="<?php echo $demo_url; ?>" class="btn btn-accent">Get a Demo</a>
-                    <a href="mailto:Support@mycourseid.com" class="btn btn-outline-light">Email Us</a>
+                <div class="demo-trust-items">
+                    <div class="demo-trust-item">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Email &amp; chat available 24/7</span>
+                    </div>
+                    <div class="demo-trust-item">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Fast, personalized responses</span>
+                    </div>
+                    <div class="demo-trust-item">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Dedicated support team</span>
+                    </div>
                 </div>
             </div>
-            <div class="cta-card-deco" aria-hidden="true">
-                <span class="cta-circle cta-circle-1"></span>
-                <span class="cta-circle cta-circle-2"></span>
-                <span class="cta-circle cta-circle-3"></span>
-                <span class="cta-circle cta-circle-4"></span>
+
+            <div class="demo-form-wrap reveal reveal-d1">
+                <?php if ( $form_submitted ) : ?>
+                    <div class="demo-form-success">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width:48px;height:48px;color:var(--accent);margin-bottom:16px"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        <h3>Thank you for reaching out</h3>
+                        <p>We&rsquo;ve received your support request and will be in touch shortly at the email you provided.</p>
+                    </div>
+                <?php else : ?>
+                    <h3>Contact Support</h3>
+                    <?php if ( $form_error ) : ?>
+                        <p class="form-error">Please fill in all required fields and try again.</p>
+                    <?php endif; ?>
+                    <form method="post" action="" class="demo-form" id="support-form">
+                        <?php wp_nonce_field( 'mcid_support_submit', 'mcid_support_nonce' ); ?>
+
+                        <div class="form-group">
+                            <label for="mcid_institution">Institution / Employer <span class="required">*</span></label>
+                            <input type="text" id="mcid_institution" name="mcid_institution" required placeholder="Your institution or employer">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="mcid_first_name">First Name <span class="required">*</span></label>
+                                <input type="text" id="mcid_first_name" name="mcid_first_name" required placeholder="First name">
+                            </div>
+                            <div class="form-group">
+                                <label for="mcid_last_name">Last Name <span class="required">*</span></label>
+                                <input type="text" id="mcid_last_name" name="mcid_last_name" required placeholder="Last name">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mcid_email">Email <span class="required">*</span></label>
+                            <input type="email" id="mcid_email" name="mcid_email" required placeholder="you@example.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mcid_phone">Phone Number <span class="required">*</span></label>
+                            <input type="tel" id="mcid_phone" name="mcid_phone" required placeholder="(555) 123-4567">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mcid_description">Brief Description of Issue <span class="optional">(optional)</span></label>
+                            <textarea id="mcid_description" name="mcid_description" rows="3" placeholder="Tell us what you're experiencing..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-accent btn-full">
+                            Submit Request
+                            <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                        </button>
+                    </form>
+                <?php endif; ?>
             </div>
         </div>
     </div>

@@ -37,7 +37,30 @@ if ( isset( $_POST['mcid_support_nonce'] ) && wp_verify_nonce( $_POST['mcid_supp
             'Content-Type: text/plain; charset=UTF-8',
         );
 
-        $sent = wp_mail( $to, $subject, $body, $headers );
+        // Handle file attachment
+        $attachments = array();
+        if ( ! empty( $_FILES['mcid_attachment']['name'] ) && $_FILES['mcid_attachment']['error'] === UPLOAD_ERR_OK ) {
+            $allowed = array( 'image/jpeg', 'image/png', 'image/gif', 'image/webp' );
+            $file_type = wp_check_filetype( $_FILES['mcid_attachment']['name'] );
+            $mime = $_FILES['mcid_attachment']['type'];
+
+            if ( in_array( $mime, $allowed, true ) && $_FILES['mcid_attachment']['size'] <= 5 * 1024 * 1024 ) {
+                $upload = wp_handle_upload( $_FILES['mcid_attachment'], array( 'test_form' => false ) );
+                if ( $upload && ! isset( $upload['error'] ) ) {
+                    $attachments[] = $upload['file'];
+                }
+            }
+        }
+
+        $sent = wp_mail( $to, $subject, $body, $headers, $attachments );
+
+        // Clean up uploaded file after sending
+        foreach ( $attachments as $file ) {
+            if ( file_exists( $file ) ) {
+                wp_delete_file( $file );
+            }
+        }
+
         $form_submitted = $sent;
         $form_error     = ! $sent;
     } else {
@@ -83,7 +106,7 @@ if ( isset( $_POST['mcid_support_nonce'] ) && wp_verify_nonce( $_POST['mcid_supp
                     <?php if ( $form_error ) : ?>
                         <p class="form-error">Please fill in all required fields and try again.</p>
                     <?php endif; ?>
-                    <form method="post" action="" class="demo-form" id="support-form">
+                    <form method="post" action="" class="demo-form" id="support-form" enctype="multipart/form-data">
                         <?php wp_nonce_field( 'mcid_support_submit', 'mcid_support_nonce' ); ?>
 
                         <div class="form-group">
@@ -115,6 +138,11 @@ if ( isset( $_POST['mcid_support_nonce'] ) && wp_verify_nonce( $_POST['mcid_supp
                         <div class="form-group">
                             <label for="mcid_description">Brief Description of Issue <span class="optional">(optional)</span></label>
                             <textarea id="mcid_description" name="mcid_description" rows="3" placeholder="Tell us what you're experiencing..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mcid_attachment">Attach a Screenshot <span class="optional">(optional &mdash; PNG, JPG, GIF up to 5 MB)</span></label>
+                            <input type="file" id="mcid_attachment" name="mcid_attachment" accept="image/png,image/jpeg,image/gif,image/webp">
                         </div>
 
                         <button type="submit" class="btn btn-accent btn-full">

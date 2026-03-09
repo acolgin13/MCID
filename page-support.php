@@ -15,7 +15,7 @@ if ( isset( $_POST['mcid_support_nonce'] ) && wp_verify_nonce( $_POST['mcid_supp
     $last_name   = sanitize_text_field( $_POST['mcid_last_name'] ?? '' );
     $email       = sanitize_email( $_POST['mcid_email'] ?? '' );
     $phone       = sanitize_text_field( $_POST['mcid_phone'] ?? '' );
-    $description = sanitize_textarea_field( $_POST['mcid_description'] ?? '' );
+    $description = mb_substr( sanitize_textarea_field( $_POST['mcid_description'] ?? '' ), 0, 500 );
 
     if ( $institution && $first_name && $last_name && $email ) {
         $to      = 'Support@mycourseid.com';
@@ -40,8 +40,10 @@ if ( isset( $_POST['mcid_support_nonce'] ) && wp_verify_nonce( $_POST['mcid_supp
         // Handle file attachment
         $attachments = array();
         if ( ! empty( $_FILES['mcid_attachment']['name'] ) && $_FILES['mcid_attachment']['error'] === UPLOAD_ERR_OK ) {
+            if ( ! function_exists( 'wp_handle_upload' ) ) {
+                require_once ABSPATH . 'wp-admin/includes/file.php';
+            }
             $allowed = array( 'image/jpeg', 'image/png', 'image/gif', 'image/webp' );
-            $file_type = wp_check_filetype( $_FILES['mcid_attachment']['name'] );
             $mime = $_FILES['mcid_attachment']['type'];
 
             if ( in_array( $mime, $allowed, true ) && $_FILES['mcid_attachment']['size'] <= 5 * 1024 * 1024 ) {
@@ -137,7 +139,8 @@ if ( isset( $_POST['mcid_support_nonce'] ) && wp_verify_nonce( $_POST['mcid_supp
 
                         <div class="form-group">
                             <label for="mcid_description">Brief Description of Issue <span class="optional">(optional)</span></label>
-                            <textarea id="mcid_description" name="mcid_description" rows="3" placeholder="Tell us what you're experiencing..."></textarea>
+                            <textarea id="mcid_description" name="mcid_description" rows="3" maxlength="500" placeholder="Tell us what you're experiencing..."></textarea>
+                            <small class="char-count"><span id="desc-char-count">0</span> / 500</small>
                         </div>
 
                         <div class="form-group">
@@ -155,5 +158,13 @@ if ( isset( $_POST['mcid_support_nonce'] ) && wp_verify_nonce( $_POST['mcid_supp
         </div>
     </div>
 </section>
+
+<style>.char-count{display:block;margin-top:4px;font-size:.85em;color:#888;text-align:right}</style>
+<script>
+(function(){
+    var ta=document.getElementById('mcid_description'),counter=document.getElementById('desc-char-count');
+    if(ta&&counter){ta.addEventListener('input',function(){counter.textContent=ta.value.length;});}
+})();
+</script>
 
 <?php get_footer(); ?>

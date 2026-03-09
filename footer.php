@@ -18,6 +18,7 @@
                 <a href="<?php echo esc_url( home_url( '/services/' ) ); ?>">Services</a>
                 <a href="<?php echo esc_url( home_url( '/security/' ) ); ?>">Security</a>
                 <a href="<?php echo esc_url( home_url( '/demo/' ) ); ?>">Get a Demo</a>
+                <a href="<?php echo esc_url( home_url( '/support/' ) ); ?>">Support</a>
             </div>
             <div class="footer-social">
                 <a href="https://www.linkedin.com/company/mycourseid/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">

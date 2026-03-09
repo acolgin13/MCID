@@ -36,7 +36,7 @@
                     <a href="<?php echo esc_url( home_url( '/security/' ) ); ?>"<?php if ( is_page( 'security' ) ) echo ' class="active"'; ?>>Security</a>
                 </div>
                 <div class="nav-right">
-                    <a href="mailto:Support@mycourseid.com" class="btn btn-support btn-sm">Support</a>
+                    <a href="<?php echo esc_url( home_url( '/support/' ) ); ?>" class="btn btn-support btn-sm<?php if ( is_page( 'support' ) ) echo ' active'; ?>">Support</a>
                     <a href="<?php echo esc_url( home_url( '/demo/' ) ); ?>" class="btn btn-accent btn-sm">Get a Demo</a>
                 </div>
             </nav>

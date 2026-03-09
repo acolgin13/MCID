@@ -87,7 +87,7 @@ get_header();
             <div class="legal-contact">
                 <h3>Contact</h3>
                 <p>Email: <a href="mailto:Support@mycourseid.com">Support@MyCourseID.com</a></p>
-                <p>Effective: December 1, 2024</p>
+                <p>Effective: March 3, 2026</p>
             </div>
         </div>
     </div>
